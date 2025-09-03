@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "dgSpecHash": "aFS1+bmgUps=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\rafael.santos\\Desktop\\Projects\\Pessoais\\todo-api\\test\\Todo.Api.App.Test\\Todo.Api.App.Test.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\awssdk.core\\4.0.0.26\\awssdk.core.4.0.0.26.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\awssdk.securitytoken\\4.0.2.1\\awssdk.securitytoken.4.0.2.1.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\awssdk.sso\\4.0.1.1\\awssdk.sso.4.0.1.1.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\awssdk.ssooidc\\4.0.1.1\\awssdk.ssooidc.4.0.1.1.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\coverlet.collector\\6.0.2\\coverlet.collector.6.0.2.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\coverlet.msbuild\\6.0.4\\coverlet.msbuild.6.0.4.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\junitxml.testlogger\\6.1.0\\junitxml.testlogger.6.1.0.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.2\\microsoft.aspnetcore.openapi.9.0.2.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.codecoverage\\17.12.0\\microsoft.codecoverage.17.12.0.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.net.test.sdk\\17.12.0\\microsoft.net.test.sdk.17.12.0.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.12.0\\microsoft.testplatform.objectmodel.17.12.0.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.testplatform.testhost\\17.12.0\\microsoft.testplatform.testhost.17.12.0.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\xunit\\2.9.2\\xunit.2.9.2.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\xunit.analyzers\\1.16.0\\xunit.analyzers.1.16.0.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\xunit.assert\\2.9.2\\xunit.assert.2.9.2.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\xunit.core\\2.9.2\\xunit.core.2.9.2.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\xunit.extensibility.core\\2.9.2\\xunit.extensibility.core.2.9.2.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\xunit.extensibility.execution\\2.9.2\\xunit.extensibility.execution.2.9.2.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\xunit.runner.visualstudio\\2.8.2\\xunit.runner.visualstudio.2.8.2.nupkg.sha512"
+  ],
+  "logs": []
+}
