@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HE9lKrng1FA=",
+  "dgSpecHash": "ZrypAS8ECRA=",
   "success": true,
   "projectFilePath": "C:\\Users\\rafael.santos\\Desktop\\Projects\\Pessoais\\todo-api\\test\\Todo.Api.Domain.Test\\Todo.Api.Domain.Test.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,9 @@
     "C:\\Users\\rafael.santos\\.nuget\\packages\\coverlet.msbuild\\6.0.4\\coverlet.msbuild.6.0.4.nupkg.sha512",
     "C:\\Users\\rafael.santos\\.nuget\\packages\\junitxml.testlogger\\6.1.0\\junitxml.testlogger.6.1.0.nupkg.sha512",
     "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.codecoverage\\17.12.0\\microsoft.codecoverage.17.12.0.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.0\\microsoft.extensions.configuration.abstractions.9.0.0.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.8\\microsoft.extensions.dependencyinjection.abstractions.9.0.8.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.0\\microsoft.extensions.primitives.9.0.0.nupkg.sha512",
     "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.net.test.sdk\\17.12.0\\microsoft.net.test.sdk.17.12.0.nupkg.sha512",
     "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.12.0\\microsoft.testplatform.objectmodel.17.12.0.nupkg.sha512",
     "C:\\Users\\rafael.santos\\.nuget\\packages\\microsoft.testplatform.testhost\\17.12.0\\microsoft.testplatform.testhost.17.12.0.nupkg.sha512",
