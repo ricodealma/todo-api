@@ -1,4 +1,6 @@
-﻿namespace Todo.Api.Domain.SeedWork.Json
+﻿using Newtonsoft.Json;
+
+namespace Todo.Api.Domain.SeedWork.Json
 {
     public static class JsonHelper
     {

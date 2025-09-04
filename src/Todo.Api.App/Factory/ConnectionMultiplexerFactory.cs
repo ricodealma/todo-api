@@ -1,4 +1,7 @@
-﻿namespace Todo.Api.App.Factory
+﻿using StackExchange.Redis;
+using Todo.Api.Domain.SeedWork;
+
+namespace Todo.Api.App.Factory
 {
     public static class ConnectionMultiplexerFactory
     {

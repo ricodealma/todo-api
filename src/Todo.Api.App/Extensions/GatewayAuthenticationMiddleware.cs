@@ -1,4 +1,6 @@
-﻿namespace Todo.Api.App.Extensions
+﻿using Todo.Api.Domain.SeedWork;
+
+namespace Todo.Api.App.Extensions
 {
     public sealed class GatewayAuthenticationMiddleware(RequestDelegate requestDelegate, EnvironmentKey environmentKey)
     {

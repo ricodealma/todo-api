@@ -1,5 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Multipay.Receivable.Microservice.Api.Domain.Aggregates.Multipay.Entities.Filter;
+using Multipay.Receivable.Microservice.Api.Domain.SeedWork.Paging;
+using Multipay.Receivable.Microservice.Api.Domain.SeedWork;
 using Newtonsoft.Json;
+using System.Linq.Expressions;
+using Todo.Api.Domain.Aggregates.Todo.Entities.Filter;
 using Todo.Api.Domain.SeedWork.ErrorResult;
 
 namespace Todo.Api.Infra.Data.Todo.Entities
@@ -8,40 +14,67 @@ namespace Todo.Api.Infra.Data.Todo.Entities
     {
         private readonly ILogger<TodoDao> _logger = logger;
         private readonly ITodoContext _todoContext = todoContext;
-        public async Task<Tuple<TodoDto?, ErrorResult>> SelectByIdAsync(Guid id)
+        public async Task<Tuple<Search<TodoDto>?, ErrorResult>> SelectByFilterAsync(Filter filter)
         {
             try
             {
-                var todoDto = await _todoContext.Todo
-                    .Include(todo => todo.Status)
-                    .Include(todo => todo.Items)
-                    .Include(todo => todo.Client)
-                    .FirstOrDefaultAsync(todo => todo.Id == id);
+                Search<TodoDto> search = new();
+                int skip = Math.Abs(filter.Paging.PerPage * (filter.Paging.Page - 1));
+                string orderBy = filter.Paging.Sort == Sort.Id ? "Id" : "";
 
-                if (todoDto == null)
-                {
-                    return new(null, new ErrorResult
+                List<Expression<Func<TodoDto, bool>>> filters = [];
+
+                if (filter.Id != null)
+                    filters.Add(x => x.Id == filter.Id);
+
+                if (!string.IsNullOrEmpty(filter.Title))
+                    filters.Add(x => EF.Functions.Like(x.Title, $"%{filter.Title}%"));
+
+                if (filter.IsCompleted != null)
+                    filters.Add(x => x.IsCompleted == filter.IsCompleted);
+
+
+                var whereFilter = DynamicFilter.GenerateFilter(filters) ?? (x => true);
+
+                var totalQuery = _todoContext.Todo.Where(whereFilter).AsNoTracking().Select(x => x.Id);
+                search.Paging.CurrentPage = filter.Paging.Page;
+                search.Paging.PerPage = filter.Paging.PerPage > default(int) ? filter.Paging.PerPage : 10;
+                search.Paging.Pages = Convert.ToInt32(Math.Ceiling((double)search.Paging.Total / filter.Paging.PerPage));
+                search.Paging.Pages = search.Paging.Total > default(int) && search.Paging.Pages == default ? 1 : search.Paging.Pages;
+
+                IQueryable<TodoDto?> query;
+
+                var baseQuery = _todoContext.Todo
+                                 .Where(whereFilter)
+                                 .AsNoTracking();
+
+
+                query = (filter.Paging.SortCriteria == SortCriteria.Descending)
+                    ? baseQuery.OrderByDescending(x => EF.Property<DateTime>(x, orderBy))
+                    : baseQuery.OrderBy(x => EF.Property<DateTime>(x, orderBy));
+
+                search.Paging.Total = await totalQuery.CountAsync();
+                query = query.Skip(skip).Take(search.Paging.PerPage);
+                search.Data = await query.ToListAsync();
+
+                if (search.Data == null || search.Data.Count == 0)
+                    return Tuple.Create<Search<TodoDto>?, ErrorResult>(null, new()
                     {
                         Error = true,
                         StatusCode = ErrorCode.NotFound,
-                        Id = id.ToString(),
-                        Message = "Todo not found for the given ID"
+                        Message = "No todos found for the given filter."
                     });
-                }
 
-                return new(todoDto, new());
+                return Tuple.Create<Search<TodoDto>?, ErrorResult>(search, new());
             }
             catch (Exception e)
             {
-                string error = JsonConvert.SerializeObject(e);
-                _logger.LogError(error);
-
-                return new(null, new ErrorResult
+                _logger.LogError(JsonConvert.SerializeObject(e));
+                return Tuple.Create<Search<TodoDto>?, ErrorResult>(null, new()
                 {
                     Error = true,
-                    Message = error,
                     StatusCode = ErrorCode.InternalServerError,
-                    Id = id.ToString()
+                    Message = $"Failed to retrieve todos with error: {JsonConvert.SerializeObject(e)}"
                 });
             }
         }
@@ -82,39 +115,69 @@ namespace Todo.Api.Infra.Data.Todo.Entities
             }
         }
 
-        public async Task<Tuple<TodoDto?, ErrorResult>> PutTodoAsync(Guid todoId, TodoDto todo)
+        public async Task<Tuple<TodoDto?, ErrorResult>> PutTodoAsync(Guid id, TodoDto todo)
         {
             try
             {
-                var todo = await _todoContext.Todo
-                    .Include(todo => todo.Status)
-                    .Include(todo => todo.Items)
-                    .Include(todo => todo.Client)
-                    .FirstOrDefaultAsync(todo => todo.Id == todoId);
+                var currentTodo = await _todoContext.Todo.FindAsync(id);
 
-                if (todo == null)
-                    return Tuple.Create<TodoDto?, ErrorResult>(null, new()
+                if (currentTodo == null)
+                    return new(null, new()
                     {
                         Error = true,
-                        Id = todoId.ToString(),
+                        Id = id.ToString(),
                         Message = "Couldn't find todo for that id",
                         StatusCode = ErrorCode.NotFound
                     });
 
-                todo.StatusId = (int)status;
+                currentTodo = todo;
 
                 await _todoContext.SaveChangesAsync();
 
-                return Tuple.Create<TodoDto?, ErrorResult>(todo, new());
+                return new(todo, new());
             }
             catch (Exception e)
             {
                 _logger.LogError(JsonConvert.SerializeObject(e));
-                return Tuple.Create<TodoDto?, ErrorResult>(null, new()
+                return new(null, new()
                 {
                     Error = true,
                     StatusCode = ErrorCode.InternalServerError,
-                    Message = $"Failed to update todo status with error: {JsonConvert.SerializeObject(e)}"
+                    Message = $"Failed to update todo with error: {JsonConvert.SerializeObject(e)}"
+                });
+            }
+        }
+
+        public async Task<Tuple<TodoDto?, ErrorResult>> DeleteTodoByIdAsync(Guid id)
+        {
+            try
+            {
+                var todoQuery = _todoContext.Todo.Where(td => td.Id == id);
+
+                var todo = await todoQuery.FirstOrDefaultAsync();
+                var deletedRows = await todoQuery.ExecuteDeleteAsync();
+
+                if (deletedRows == 0)
+                    return new(null, new()
+                    {
+                        Error = true,
+                        Id = id.ToString(),
+                        Message = "No rows were deleted",
+                        StatusCode = ErrorCode.NotFound
+                    });
+
+                await _todoContext.SaveChangesAsync();
+
+                return new(todo, new());
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(JsonConvert.SerializeObject(e));
+                return new(null, new()
+                {
+                    Error = true,
+                    StatusCode = ErrorCode.InternalServerError,
+                    Message = $"Failed to delete todo with error: {JsonConvert.SerializeObject(e)}"
                 });
             }
         }

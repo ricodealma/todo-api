@@ -31,6 +31,6 @@ app.UseSwaggerUI(config =>
 });
 app.UseHttpsRedirection();
 
-await app.FillEnvironmentVariables(app.Configuration);
+app.FillEnvironmentVariables(app.Configuration);
 app.AddEndpoints();
 app.Run();

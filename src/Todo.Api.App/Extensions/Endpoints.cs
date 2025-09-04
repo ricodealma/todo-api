@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using Todo.Api.Domain.Aggregates.Todo;
 using Todo.Api.Domain.Aggregates.Todo.Entities;
+using Todo.Api.Domain.Aggregates.Todo.Entities.Filter;
 using Todo.Api.Domain.SeedWork.ErrorResult;
 
 namespace Todo.Api.App.Extensions
@@ -90,9 +91,15 @@ namespace Todo.Api.App.Extensions
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public static async Task<IResult> GetTodosByFilter([FromQuery] Guid id, [FromServices] ITodoService todoService)
+        public static async Task<IResult> GetTodosByFilter([FromQuery] Guid id, [FromQuery] bool isCompleted, [FromQuery] string title, [FromServices] ITodoService todoService)
         {
-            var result = await todoService.SelectTodoByFilterAsync(id);
+            var filter = new Filter()
+            {
+                Id = id,
+                IsCompleted = isCompleted,
+                Title = title
+            };
+            var result = await todoService.SelectTodoByFilterAsync(filter);
             if (result.Item2 is not null && result.Item2.Error)
                 return GenerateErrorResult(result.Item2);
 

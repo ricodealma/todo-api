@@ -4,7 +4,8 @@
     {
         public FilterPaging Paging { get; set; } = new();
         public Guid? Id { get; set; }
-        public bool IsCompleted { get; set; }
+        public bool? IsCompleted { get; set; }
+        public string? Title { get; set; }
 
     }
 }

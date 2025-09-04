@@ -10,7 +10,6 @@ namespace Todo.Api.App.Extensions
     {
         private static void AddApp(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddHttpClient<IRequest, Request>();
             serviceCollection.AddSingleton(ConnectionMultiplexerFactory.Create);
 
             serviceCollection.Configure<JsonOptions>(options =>

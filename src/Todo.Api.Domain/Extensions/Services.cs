@@ -8,7 +8,6 @@ namespace Todo.Api.Domain.Extensions
     {
         private static void AddDomainServices(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<IAwsService, AwsService>();
             serviceCollection.AddScoped<ITodoService, TodoService>();
         }
 

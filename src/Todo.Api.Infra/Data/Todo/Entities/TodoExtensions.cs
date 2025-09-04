@@ -1,11 +1,10 @@
 ﻿using Todo.Api.Domain.Aggregates.Todo.Entities;
-using Todo.Api.Infra.Data.Todo.Entities;
 
 namespace Todo.Api.Infra.Data.Todo.Entities
 {
     public static class TodoExtensions
     {
-        public static TodoDto FromDomain(this TodoCreateRequest todo)
+        public static TodoDto ToDto(this TodoModel todo)
         {
             return new()
             {
@@ -19,11 +18,8 @@ namespace Todo.Api.Infra.Data.Todo.Entities
             return new TodoModel
             {
                 Id = dto.Id,
-                StatusId = dto.StatusId,
-                ClientId = dto.ClientId,
-                Status = dto.Status?.ToDomain(),
-                Items = dto.Items?.ToDomain() ?? [],
-                Client = dto.Client?.ToDomain() ?? new(),
+                IsCompleted = dto.IsCompleted,
+                Title = dto.Title,
             };
         }
 

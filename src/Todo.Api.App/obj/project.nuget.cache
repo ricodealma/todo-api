@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "zNprViHZ0J4=",
+  "dgSpecHash": "wYp1VI328cs=",
   "success": true,
   "projectFilePath": "C:\\Users\\rafael.santos\\Desktop\\Projects\\Pessoais\\todo-api\\src\\Todo.Api.App\\Todo.Api.App.csproj",
   "expectedPackageFiles": [
@@ -23,10 +23,13 @@
     "C:\\Users\\rafael.santos\\.nuget\\packages\\newtonsoft.json\\13.0.4-beta1\\newtonsoft.json.13.0.4-beta1.nupkg.sha512",
     "C:\\Users\\rafael.santos\\.nuget\\packages\\npgsql\\9.0.3\\npgsql.9.0.3.nupkg.sha512",
     "C:\\Users\\rafael.santos\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.4\\npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\stackexchange.redis\\2.9.11\\stackexchange.redis.2.9.11.nupkg.sha512",
     "C:\\Users\\rafael.santos\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\9.0.4\\swashbuckle.aspnetcore.annotations.9.0.4.nupkg.sha512",
     "C:\\Users\\rafael.santos\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\9.0.4\\swashbuckle.aspnetcore.swagger.9.0.4.nupkg.sha512",
     "C:\\Users\\rafael.santos\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\9.0.4\\swashbuckle.aspnetcore.swaggergen.9.0.4.nupkg.sha512",
-    "C:\\Users\\rafael.santos\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\9.0.4\\swashbuckle.aspnetcore.swaggerui.9.0.4.nupkg.sha512"
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\9.0.4\\swashbuckle.aspnetcore.swaggerui.9.0.4.nupkg.sha512",
+    "C:\\Users\\rafael.santos\\.nuget\\packages\\system.io.pipelines\\5.0.1\\system.io.pipelines.5.0.1.nupkg.sha512"
   ],
   "logs": []
 }
