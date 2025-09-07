@@ -6,7 +6,7 @@ public sealed class Constant
     public const string APP_ENV_QA = "QA";
     public const string APP_ENV_PROD = "PROD";
     public const string APP_REQUEST_HEADER_KEY = "X-Api-Header";
-    public const string AWS_SECRET_MANAGER_HEADER_TOKEN = "x-api-header";
+    public const string HEADER_TOKEN = "X_API_HEADER";
 
     public const string APP_FILTER_SORT_CRITERIA_ASC = "asc";
     public const string APP_FILTER_SORT_CRITERIA_DESC = "desc";
@@ -21,15 +21,15 @@ public sealed class Constant
 
     public const string APP_REDIS_CACHE_GROUP_SEARCH_TOTAL_BASE_NAME = "grouped-search:total:";
 
-    public const string SQL_SERVER = "sql-server";
-    public const string SQL_USER = "sql-user";
-    public const string SQL_PASSWORD = "sql-password";
-    public const string SQL_DATABASE = "sql-database";
+    public const string SQL_SERVER = "SQL_SERVER";
+    public const string SQL_USER = "SQL_USER";
+    public const string SQL_PASSWORD = "SQL_PASSWORD";
+    public const string SQL_DATABASE = "SQL_DATABASE";
 
 
-    public const string REDIS_SERVER = "redis-server";
-    public const string REDIS_USER = "redis-user";
-    public const string REDIS_PASSWORD = "redis-password";
+    public const string REDIS_SERVER = "REDIS_SERVER";
+    public const string REDIS_USER = "REDIS_USER";
+    public const string REDIS_PASSWORD = "REDIS_PASSWORD";
 
     public const string REDIS_CACHE_ENTITY_EXPIRATION_HOURS = "REDIS_CACHE_ENTITY_EXPIRATION_HOURS";
 }

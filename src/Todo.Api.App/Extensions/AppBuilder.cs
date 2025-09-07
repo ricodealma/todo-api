@@ -11,7 +11,7 @@ namespace Todo.Api.App.Extensions
                 EnvironmentKey.GetVariable<int>(Constant.REDIS_CACHE_ENTITY_EXPIRATION_HOURS, configuration);
 
             environmentKey.AppInformation.HeaderKey =
-                EnvironmentKey.GetVariable<string>(Constant.AWS_SECRET_MANAGER_HEADER_TOKEN, configuration);
+                EnvironmentKey.GetVariable<string>(Constant.HEADER_TOKEN, configuration);
 
             environmentKey.PostgresInformation.Server =
                 EnvironmentKey.GetVariable<string>(Constant.SQL_SERVER, configuration);

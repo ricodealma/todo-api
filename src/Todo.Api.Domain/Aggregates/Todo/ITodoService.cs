@@ -8,7 +8,7 @@ namespace Todo.Api.Domain.Aggregates.Todo
     public interface ITodoService
     {
         Task<Tuple<TodoModel?, ErrorResult>> InsertTodoAsync(TodoCreateRequest todo);
-        Task<Tuple<TodoModel?, ErrorResult>> UpdateTodoByIdAsync(Guid id);
+        Task<Tuple<TodoModel?, ErrorResult>> UpdateTodoByIdAsync(Guid id, TodoModel todo);
         Task<Tuple<Search<TodoModel>?, ErrorResult>> SelectTodoByFilterAsync(Filter filter);
         Task<Tuple<TodoModel?, ErrorResult>> DeleteTodoByIdAsync(Guid id);
     }

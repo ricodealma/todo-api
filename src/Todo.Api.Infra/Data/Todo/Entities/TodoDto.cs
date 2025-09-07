@@ -2,7 +2,7 @@
 
 namespace Todo.Api.Infra.Data.Todo.Entities
 {
-    [Table("Todo")]
+    [Table("todo")]
     public record TodoDto
     {
         public Guid Id { get; set; }

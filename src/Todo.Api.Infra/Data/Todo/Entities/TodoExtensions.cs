@@ -8,6 +8,7 @@ namespace Todo.Api.Infra.Data.Todo.Entities
         {
             return new()
             {
+                Id = todo.Id,
                 IsCompleted = todo.IsCompleted,
                 Title = todo.Title,
             };

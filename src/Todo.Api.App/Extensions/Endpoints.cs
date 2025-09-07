@@ -55,9 +55,9 @@ namespace Todo.Api.App.Extensions
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public static async Task<IResult> UpdateTodoById([FromRoute] Guid id, [FromServices] ITodoService todoService)
+        public static async Task<IResult> UpdateTodoById([FromRoute] Guid id, [FromBody] TodoModel todo, [FromServices] ITodoService todoService)
         {
-            var result = await todoService.UpdateTodoByIdAsync(id);
+            var result = await todoService.UpdateTodoByIdAsync(id, todo);
             if (result.Item1 is null || result.Item2.Error)
                 return GenerateErrorResult(result.Item2);
 
@@ -79,7 +79,7 @@ namespace Todo.Api.App.Extensions
             if (result.Item1 is null || result.Item2.Error)
                 return GenerateErrorResult(result.Item2);
 
-            return Results.Created($"/v1/todos/{result.Item1.Id}", result.Item1);
+            return Results.Ok(result.Item1);
         }
 
         [SwaggerOperation(
@@ -91,13 +91,24 @@ namespace Todo.Api.App.Extensions
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public static async Task<IResult> GetTodosByFilter([FromQuery] Guid id, [FromQuery] bool isCompleted, [FromQuery] string title, [FromServices] ITodoService todoService)
+        public static async Task<IResult> GetTodosByFilter(
+            [FromServices] ITodoService todoService,
+            [FromQuery] Guid? id,
+            [FromQuery] bool? isCompleted,
+            [FromQuery] string? title,
+            [FromQuery] int page = 1,
+            [FromQuery] int perPage = 10)
         {
             var filter = new Filter()
             {
                 Id = id,
                 IsCompleted = isCompleted,
-                Title = title
+                Title = title,
+                Paging = new()
+                {
+                    Page = page,
+                    PerPage = perPage
+                }
             };
             var result = await todoService.SelectTodoByFilterAsync(filter);
             if (result.Item2 is not null && result.Item2.Error)

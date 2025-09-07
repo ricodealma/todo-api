@@ -14,7 +14,7 @@ public static class TodoModelExtensions
         return new TodoModel
         {
             Id = Guid.CreateVersion7(),
-            IsCompleted = request.IsCompleted,
+            IsCompleted = request.IsCompleted ?? false,
             Title = request.Title,
         };
     }

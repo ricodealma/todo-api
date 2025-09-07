@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Multipay.Receivable.Microservice.Api.Domain.Aggregates.Multipay.Entities.Filter;
 using Multipay.Receivable.Microservice.Api.Domain.SeedWork.Paging;
 using Multipay.Receivable.Microservice.Api.Domain.SeedWork;
 using Newtonsoft.Json;
@@ -20,7 +19,6 @@ namespace Todo.Api.Infra.Data.Todo.Entities
             {
                 Search<TodoDto> search = new();
                 int skip = Math.Abs(filter.Paging.PerPage * (filter.Paging.Page - 1));
-                string orderBy = filter.Paging.Sort == Sort.Id ? "Id" : "";
 
                 List<Expression<Func<TodoDto, bool>>> filters = [];
 
@@ -39,6 +37,7 @@ namespace Todo.Api.Infra.Data.Todo.Entities
                 var totalQuery = _todoContext.Todo.Where(whereFilter).AsNoTracking().Select(x => x.Id);
                 search.Paging.CurrentPage = filter.Paging.Page;
                 search.Paging.PerPage = filter.Paging.PerPage > default(int) ? filter.Paging.PerPage : 10;
+                search.Paging.Total = await totalQuery.CountAsync();
                 search.Paging.Pages = Convert.ToInt32(Math.Ceiling((double)search.Paging.Total / filter.Paging.PerPage));
                 search.Paging.Pages = search.Paging.Total > default(int) && search.Paging.Pages == default ? 1 : search.Paging.Pages;
 
@@ -49,15 +48,15 @@ namespace Todo.Api.Infra.Data.Todo.Entities
                                  .AsNoTracking();
 
 
-                query = (filter.Paging.SortCriteria == SortCriteria.Descending)
-                    ? baseQuery.OrderByDescending(x => EF.Property<DateTime>(x, orderBy))
-                    : baseQuery.OrderBy(x => EF.Property<DateTime>(x, orderBy));
+                query = baseQuery
+                    .OrderBy(x => x.IsCompleted)
+                    .ThenBy(x => x.Id);
 
-                search.Paging.Total = await totalQuery.CountAsync();
+
                 query = query.Skip(skip).Take(search.Paging.PerPage);
                 search.Data = await query.ToListAsync();
 
-                if (search.Data == null || search.Data.Count == 0)
+                if (search.Data == null)
                     return Tuple.Create<Search<TodoDto>?, ErrorResult>(null, new()
                     {
                         Error = true,
@@ -130,7 +129,8 @@ namespace Todo.Api.Infra.Data.Todo.Entities
                         StatusCode = ErrorCode.NotFound
                     });
 
-                currentTodo = todo;
+                currentTodo.Title = todo.Title;
+                currentTodo.IsCompleted = todo.IsCompleted;
 
                 await _todoContext.SaveChangesAsync();
 
