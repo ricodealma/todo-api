@@ -26,7 +26,7 @@ services:
       - '6379:6379'
 
   todo:
-    image: todo-api:latest
+    image: ricodealma/todo-api:latest
     container_name: todo
     restart: always
     ports:
@@ -52,7 +52,7 @@ services:
         condition: service_started
 
   todo-web:
-    image: todo-web:latest
+    image: ricodealma/todo-web:latest
     container_name: todo-web
     restart: always
     ports:
