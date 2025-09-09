@@ -184,7 +184,6 @@ namespace Todo.Api.Infra.External
                 _logger.LogError(e, "Error removing items from Redis cache.");
             }
         }
-
         public void SetKeyExpire(string key, TimeSpan expiration, CommandFlags flags = CommandFlags.FireAndForget)
         {
             try
